@@ -82,7 +82,7 @@ class _MainScreenState extends State<MainScreen>
             Tab(icon: Icon(Icons.camera_alt)),
             Tab(text: 'Contacts'),
             Tab(
-              text: 'Statues',
+              text: 'Status',
             ),
             Tab(text: 'Settings'),
           ],

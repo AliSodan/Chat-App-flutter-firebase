@@ -1,5 +1,5 @@
 import 'package:chat_app_29_9_2015/provider/chat_provider.dart';
-import 'package:chat_app_29_9_2015/screen/statues_viewer.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -47,14 +47,7 @@ class _StatuesPageState extends State<StatuesPage> {
                     height: _height * 0.1,
                     child: Center(
                       child: ListTile(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => StatuesViewer()));
-                        },
                         leading: GestureDetector(
-                          onTap: () {},
                           child: SizedBox(
                             width: _width * 0.15,
                             height: _height * 0.1,

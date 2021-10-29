@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:chat_app_29_9_2015/fire_store/add_user.dart';
 import 'package:chat_app_29_9_2015/provider/chat_provider.dart';
 
@@ -64,38 +63,6 @@ class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     getSwitchValues();
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                  title: const Text('Allow Notifications'),
-                  content: const Text(
-                      'Our App would like to send you Notifications'),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        'Don\'t Allow',
-                        style: TextStyle(color: Colors.grey, fontSize: 18),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () => AwesomeNotifications()
-                          .requestPermissionToSendNotifications()
-                          .then((_) => Navigator.pop(context)),
-                      child: const Text('Allow',
-                          style: TextStyle(
-                              color: Colors.teal,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                  ],
-                ));
-      }
-    });
 
     super.initState();
   }
