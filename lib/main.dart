@@ -1,8 +1,6 @@
 import 'package:chat_app_29_9_2015/provider/chat_provider.dart';
-
 import 'package:chat_app_29_9_2015/screen/main_screen.dart';
 import 'package:chat_app_29_9_2015/screen/sign_up.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
