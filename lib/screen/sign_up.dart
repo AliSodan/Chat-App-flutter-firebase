@@ -26,15 +26,15 @@ class _SignUpState extends State<SignUp> {
 
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
-  TextEditingController userName = TextEditingController();
-  TextEditingController email = TextEditingController();
+  //TextEditingController userName = TextEditingController();
+  // TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
   //*this key is to validate the formfields
   final formKey = GlobalKey<FormState>();
 
   bool isLoading = false;
-  String? emailTake;
+
   //* an instance of firebase auth
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -145,7 +145,8 @@ class _SignUpState extends State<SignUp> {
                           left: _width * 0.05,
                         ),
                         child: TextFormField(
-                          controller: userName,
+                          controller:
+                              Provider.of<ChatProvider>(context).userName,
                           style: TextStyle(
                               color:
                                   Provider.of<ChatProvider>(context).darkMood ==
@@ -188,7 +189,7 @@ class _SignUpState extends State<SignUp> {
                         ),
                         child: TextFormField(
                           textInputAction: TextInputAction.next,
-                          controller: email,
+                          controller: Provider.of<ChatProvider>(context).email,
                           style: TextStyle(
                               color:
                                   Provider.of<ChatProvider>(context).darkMood ==
@@ -437,60 +438,138 @@ class _SignUpState extends State<SignUp> {
         isLoading = true;
       });
       try {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: email.text, password: password.text);
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: Provider.of<ChatProvider>(context, listen: false).email.text,
+          password: password.text,
+        );
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString('userEmailSharedPreferences', email.text);
-        if (userCredential.user!.emailVerified == false) {
-          User? user = FirebaseAuth.instance.currentUser;
-          _addUser.addUser(userName.text, email.text);
-          if (user != null && !user.emailVerified) {
-            await user.sendEmailVerification();
-            if (userCredential.user!.emailVerified == false) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const VerificationPage(),
-                ),
-              );
-            }
-            if (userCredential.user!.emailVerified == true) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MainScreen(),
-                ),
-              );
-            }
-          }
+        prefs.setString('userEmailSharedPreferences',
+            Provider.of<ChatProvider>(context, listen: false).email.text);
+        User? user = FirebaseAuth.instance.currentUser;
+        if (userCredential.user!.emailVerified == true) {
+          _addUser.addUser(
+            Provider.of<ChatProvider>(context, listen: false).userName.text,
+            Provider.of<ChatProvider>(context, listen: false).email.text,
+          );
+          await FirebaseAuth.instance.currentUser!.updateDisplayName(
+              Provider.of<ChatProvider>(context, listen: false).userName.text);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const MainScreen(),
+            ),
+          );
+        } else if (user != null && !user.emailVerified) {
+          await user.sendEmailVerification();
+          await FirebaseAuth.instance.currentUser!.updateDisplayName(
+              Provider.of<ChatProvider>(context, listen: false).userName.text);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const VerificationPage(),
+            ),
+          );
+        } else if (userCredential.user!.emailVerified == false) {
+          await FirebaseAuth.instance.currentUser!.updateDisplayName(
+              Provider.of<ChatProvider>(context, listen: false).userName.text);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const VerificationPage(),
+            ),
+          );
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Alert'),
+                  content: const Text('The password provided is too weak.'),
+                  actions: [
+                    TextButton(
+                        onPressed: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          prefs.remove('userEmailSharedPreferences');
+
+                          password.clear();
+
+                          setState(() {
+                            isLoading = false;
+                          });
+                          _dismissDialog();
+                        },
+                        child: const Text('ok'))
+                  ],
+                );
+              });
         } else if (e.code == 'email-already-in-use') {
-          return AlertDialog(
-            title: Text('Alert'),
-            content: Text('The account already exists for that email.'),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    userName.clear();
-                    password.clear();
-                    email.clear();
-                    setState(() {
-                      isLoading = false;
-                    });
-                    _dismissDialog();
-                  },
-                  child: Text('ok'))
-            ],
-          );
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Alert'),
+                  content:
+                      const Text('The account already exists for that email.'),
+                  actions: [
+                    TextButton(
+                        onPressed: () async {
+                          Provider.of<ChatProvider>(context, listen: false)
+                              .userName
+                              .clear();
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          prefs.remove('userEmailSharedPreferences');
+
+                          password.clear();
+                          Provider.of<ChatProvider>(context, listen: false)
+                              .email
+                              .clear();
+                          setState(() {
+                            isLoading = false;
+                          });
+                          _dismissDialog();
+                        },
+                        child: const Text('ok'))
+                  ],
+                );
+              });
         }
       } catch (e) {
-        print(e);
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('Alert'),
+                content: const Text('Sign up failed, '),
+                actions: [
+                  TextButton(
+                      onPressed: () async {
+                        Provider.of<ChatProvider>(context, listen: false)
+                            .userName
+                            .clear();
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.remove('userEmailSharedPreferences');
+
+                        password.clear();
+                        Provider.of<ChatProvider>(context, listen: false)
+                            .email
+                            .clear();
+                        setState(() {
+                          isLoading = false;
+                        });
+                        _dismissDialog();
+                      },
+                      child: const Text('ok'))
+                ],
+              );
+            });
       }
+    } else {
+      return null;
     }
   }
 
