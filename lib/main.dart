@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-bool? emailb;
+bool? emailSaved;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -14,9 +14,9 @@ Future<void> main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var email = prefs.getString('userEmailSharedPreferences');
   if (email == null) {
-    emailb = false;
+    emailSaved = false;
   } else {
-    emailb = true;
+    emailSaved = true;
   }
   runApp(
     ChangeNotifierProvider(
@@ -40,12 +40,13 @@ class MyApp extends StatelessWidget {
         }
       },
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            scaffoldBackgroundColor:
-                Provider.of<ChatProvider>(context).backGroundColor,
-          ),
-          home: emailb == false ? const SignUp() : const MainScreen()),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor:
+              Provider.of<ChatProvider>(context).backGroundColor,
+        ),
+        home: emailSaved == false ? const SignUp() : const MainScreen(),
+      ),
     );
   }
 }
