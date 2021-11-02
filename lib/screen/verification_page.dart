@@ -1,5 +1,7 @@
+import 'package:chat_app_29_9_2015/fire_store/add_user.dart';
 import 'package:chat_app_29_9_2015/provider/chat_provider.dart';
 import 'package:chat_app_29_9_2015/screen/main_screen.dart';
+import 'package:chat_app_29_9_2015/screen/sign_up.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,6 +28,8 @@ class _VerificationPageState extends State<VerificationPage> {
     super.initState();
   }
 
+  final signUppage = SignUp();
+  final _addUser = AddUser();
   bool verifyCheck = false;
   String verificationMessage = '';
   @override
@@ -85,6 +89,17 @@ class _VerificationPageState extends State<VerificationPage> {
             onTap: () async {
               await FirebaseAuth.instance.currentUser!.reload();
               if (FirebaseAuth.instance.currentUser!.emailVerified == true) {
+                await FirebaseAuth.instance.currentUser!.updateDisplayName(
+                    Provider.of<ChatProvider>(context, listen: false)
+                        .userName
+                        .text);
+                _addUser.addUser(
+                    Provider.of<ChatProvider>(context, listen: false)
+                        .userName
+                        .text,
+                    Provider.of<ChatProvider>(context, listen: false)
+                        .email
+                        .text);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const MainScreen()),

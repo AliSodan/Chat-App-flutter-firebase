@@ -29,7 +29,6 @@ class _ContactPageState extends State<ContactPage> with WidgetsBindingObserver {
     super.initState();
   }
 
-  List badge = [];
 //* this method is update the value of chating with field in the firestore
   isChatingWith() async {
     await FirebaseFirestore.instance
@@ -88,10 +87,11 @@ class _ContactPageState extends State<ContactPage> with WidgetsBindingObserver {
             children: [
               SizedBox(
                   height: MediaQuery.of(context).size.height * 0.3,
-                  //! here where the contants you can chat with will appear;
+                  //!  here where the contants you can chat with will appear
                   child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('ChatRooms')
+                        .orderBy('chatTime', descending: true)
                         .where('users',
                             arrayContains:
                                 FirebaseAuth.instance.currentUser!.displayName)
@@ -233,6 +233,7 @@ class _ContactPageState extends State<ContactPage> with WidgetsBindingObserver {
                                                     context)
                                                 .textColor),
                                       ),
+                                //* here where the last message of the conversation will appear
                                 subtitle: StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
                                       .collection('ChatRooms')
@@ -292,13 +293,13 @@ class _ContactPageState extends State<ContactPage> with WidgetsBindingObserver {
                                           Text(
                                             '  :  ',
                                             style: TextStyle(
-                                                color:
-                                                    Provider.of<ChatProvider>(
-                                                                    context)
-                                                                .darkMood ==
-                                                            true
-                                                        ? Colors.white
-                                                        : Colors.black38),
+                                              color: Provider.of<ChatProvider>(
+                                                              context)
+                                                          .darkMood ==
+                                                      true
+                                                  ? Colors.white
+                                                  : Colors.black38,
+                                            ),
                                           ),
                                           snapshot3.data!.docs.isNotEmpty
                                               ? snapshot3
@@ -311,36 +312,40 @@ class _ContactPageState extends State<ContactPage> with WidgetsBindingObserver {
                                                       snapshot3.data!.docs
                                                               .first['Message']
                                                               .substring(
-                                                                  0, 27) +
+                                                                  0, 19) +
                                                           '...',
                                                       style: TextStyle(
-                                                          color: Provider.of<ChatProvider>(
-                                                                          context)
-                                                                      .darkMood ==
-                                                                  true
-                                                              ? Colors.white
-                                                              : Colors.black38),
+                                                        color: Provider.of<ChatProvider>(
+                                                                        context)
+                                                                    .darkMood ==
+                                                                true
+                                                            ? Colors.white
+                                                            : Colors.black38,
+                                                      ),
                                                     )
                                                   : Text(
                                                       snapshot3.data!.docs
                                                           .first['Message'],
                                                       style: TextStyle(
-                                                          color: Provider.of<ChatProvider>(
-                                                                          context)
-                                                                      .darkMood ==
-                                                                  true
-                                                              ? Colors.white
-                                                              : Colors.black38),
+                                                        color: Provider.of<ChatProvider>(
+                                                                        context)
+                                                                    .darkMood ==
+                                                                true
+                                                            ? Colors.white
+                                                            : Colors.black38,
+                                                      ),
                                                     )
                                               : Text(
                                                   'No messages yet',
                                                   style: TextStyle(
-                                                      color: Provider.of<ChatProvider>(
-                                                                      context)
-                                                                  .darkMood ==
-                                                              true
-                                                          ? Colors.white
-                                                          : Colors.black38),
+                                                    color:
+                                                        Provider.of<ChatProvider>(
+                                                                        context)
+                                                                    .darkMood ==
+                                                                true
+                                                            ? Colors.white
+                                                            : Colors.black38,
+                                                  ),
                                                 ),
                                         ],
                                       );
@@ -348,16 +353,17 @@ class _ContactPageState extends State<ContactPage> with WidgetsBindingObserver {
                                       return Text(
                                         'No messages yet',
                                         style: TextStyle(
-                                            color: Provider.of<ChatProvider>(
-                                                            context)
-                                                        .darkMood ==
-                                                    true
-                                                ? Colors.white
-                                                : Colors.black38),
+                                          color:
+                                              Provider.of<ChatProvider>(context)
+                                                          .darkMood ==
+                                                      true
+                                                  ? Colors.white
+                                                  : Colors.black38,
+                                        ),
                                       );
                                     }
                                   },
-                                ),
+                                ), //*here is where the time of the last message will appear
                                 trailing: StreamBuilder(
                                   stream: FirebaseFirestore.instance
                                       .collection('ChatRooms')
@@ -406,7 +412,7 @@ class _ContactPageState extends State<ContactPage> with WidgetsBindingObserver {
                                             )
                                           : Text(' ');
                                     } else {
-                                      return Text('NO Time provider');
+                                      return Text('No Time provided');
                                     }
                                   },
                                 ),

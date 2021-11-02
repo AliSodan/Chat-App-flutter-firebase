@@ -29,7 +29,7 @@ class AddUser {
           'isFriend': false,
         }, SetOptions(merge: true))
         .then((value) => print('signed in'))
-        .catchError((error) => print("Failed to add user: $error"));
+        .catchError((error) => print('faild$error'));
   }
 
   //! this method is to add a google account to firestore;
@@ -46,7 +46,7 @@ class AddUser {
           'isFriend': false,
         }, SetOptions(merge: true))
         .then((value) => print('signed in'))
-        .catchError((error) => print("Failed to add user: $error"));
+        .catchError((error) => print('faild$error'));
   }
 
 //! This method is to get Chat app user name from shared preferences

@@ -280,8 +280,11 @@ class _LoginPageState extends State<LoginPage> {
               onTap: () async {
                 UserCredential result = await signInWithGoogle();
 
-                _addUser.setGoogleUser(result.user!.displayName!,
-                    result.user!.email!, result.user!.photoURL!);
+                _addUser.setGoogleUser(
+                  result.user!.displayName!,
+                  result.user!.email!,
+                  result.user!.photoURL!,
+                );
                 //* Saving user name and email to shared preferences
 
                 if (result.credential!.providerId == 'google.com') {

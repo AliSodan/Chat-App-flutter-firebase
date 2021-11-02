@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'dart:math';
 import 'dart:io';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:path/path.dart';
 import 'package:chat_app_29_9_2015/screen/main_screen_pages/camera_page.dart';
 import 'package:chat_app_29_9_2015/screen/sign_up.dart';
@@ -728,6 +729,7 @@ class _SettingPageState extends State<SettingPage> {
 
   Future signingOutmethod() async {
     await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
   }
 
   getTheImageUrlFromFireStorage() async {

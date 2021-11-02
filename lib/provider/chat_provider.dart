@@ -5,8 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class ChatProvider extends ChangeNotifier {
+  //* this int is to an id for hero widget
   int i = 0;
+  //*this string is to handle the name of the image in the hero widget
   String heroImage = '';
+  //*this text editing controller is to handle the sign up userName to the verification page
+  TextEditingController userName = TextEditingController();
+  //*this text editing controller is to handle the sign up email to the verification page
+  TextEditingController email = TextEditingController();
+
   double clipperHeight = 0;
   String searchResult1 = '';
   double clipperHeight2 = 0;
