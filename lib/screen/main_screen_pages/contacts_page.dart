@@ -425,7 +425,7 @@ class _ContactPageState extends State<ContactPage> with WidgetsBindingObserver {
                   )),
             ],
           ),
-          //* here where the search result will appear
+          //*    here where the search result will appear
           ClipPath(
             clipper: WaveClipper(),
             child: AnimatedContainer(
