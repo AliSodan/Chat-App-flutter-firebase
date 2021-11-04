@@ -114,17 +114,18 @@ class _VerificationPageState extends State<VerificationPage> {
               height: _height * 0.055,
               width: _width * 0.5,
               decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(40),
-                  ),
-                  color: Provider.of<ChatProvider>(context).mainColor,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        blurRadius: 4,
-                        spreadRadius: 4,
-                        offset: const Offset(1.5, 2))
-                  ]),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(40),
+                ),
+                color: Provider.of<ChatProvider>(context).mainColor,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 4,
+                      spreadRadius: 4,
+                      offset: const Offset(1.5, 2))
+                ],
+              ),
               child: const Center(
                 child: Text(
                   'Continue',

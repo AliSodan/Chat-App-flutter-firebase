@@ -24,7 +24,7 @@ Future<void> main() async {
       child: const MyApp(),
     ),
   );
-} //* This method is to get the user email from sharedPrefernces and check if the val
+} //*  This method is to get the user email from sharedPrefernces and check if the val
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

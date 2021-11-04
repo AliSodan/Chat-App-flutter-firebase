@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-//* this class contains a method to create a chatroom
+//*  this class contains a method to create a chatroom
 class CreateChatRoom {
   FirebaseAuth firebaseUser = FirebaseAuth.instance;
   //! this chat room will be created when the user search for a nother user

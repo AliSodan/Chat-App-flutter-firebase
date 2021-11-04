@@ -1,4 +1,3 @@
-
 import 'package:chat_app_29_9_2015/fire_store/create_chat_room.dart';
 
 import 'package:chat_app_29_9_2015/provider/chat_provider.dart';
@@ -337,7 +336,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                     ),
                                   })
                                 : null;
-                           
+
                             onFieldSubmited();
                           },
                           icon: Icon(
@@ -358,7 +357,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
     );
   }
 
-//* this method is to get the user photo from fire store
+//*  this method is to get the user photo from fire store
   gettingPhoto() async {
     return await FirebaseFirestore.instance
         .collection('users')

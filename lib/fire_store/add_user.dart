@@ -32,7 +32,7 @@ class AddUser {
         .catchError((error) => print('faild$error'));
   }
 
-  //! this method is to add a google account to firestore;
+  //!  this method is to add a google account to firestore;
   Future setGoogleUser(String name, String email, String photo) async {
     return FirebaseFirestore.instance
         .collection('users')

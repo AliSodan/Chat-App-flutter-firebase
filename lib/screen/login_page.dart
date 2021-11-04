@@ -285,7 +285,7 @@ class _LoginPageState extends State<LoginPage> {
                   result.user!.email!,
                   result.user!.photoURL!,
                 );
-                //* Saving user name and email to shared preferences
+                //*  Saving user name and email to shared preferences
 
                 if (result.credential!.providerId == 'google.com') {
                   Navigator.pushReplacement(

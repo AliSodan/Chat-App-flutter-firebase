@@ -304,7 +304,7 @@ class _SignUpState extends State<SignUp> {
                 _addUser.setGoogleUser(
                   //* I want take the user name
                   result.user!.displayName!,
-                  //* I want to take his email
+                  //*  I want to take his email
                   result.user!.email!,
                   //* I want to take his email photo url
                   result.user!.photoURL!,

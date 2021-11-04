@@ -98,7 +98,7 @@ class _MainScreenState extends State<MainScreen>
         ],
       ),
     );
-  } //* this method is to get the switch widget value from shared preferences
+  } //*  this method is to get the switch widget value from shared preferences
 
   getDataFromSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

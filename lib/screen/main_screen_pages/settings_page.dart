@@ -721,7 +721,7 @@ class _SettingPageState extends State<SettingPage> {
     //  return prefs.setString('statues', changeStatues.text);
   }
 
-  //* this method is to remove the signing in email when the user signs out
+  //*  this method is to remove the signing in email when the user signs out
   removeSigningInFromSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('userEmailSharedPreferences');

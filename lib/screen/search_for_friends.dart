@@ -119,7 +119,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                               'The user doesn\'t exist'
                                           ? Container()
                                           : IconButton(
-                                              //! here the user will be able to create a chat room after clicking on the send message
+                                              //!  here the user will be able to create a chat room after clicking on the send message
                                               onPressed: () async {
                                                 //*creating a collection
                                                 await createChatRoom

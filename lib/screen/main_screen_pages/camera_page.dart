@@ -43,10 +43,11 @@ class _CameraPageState extends State<CameraPage> {
         ? Column(
             children: [
               Container(
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: FileImage(image!)),
-                  )),
+                height: MediaQuery.of(context).size.height * 0.7,
+                decoration: BoxDecoration(
+                  image: DecorationImage(image: FileImage(image!)),
+                ),
+              ),
               InkWell(
                 onTap: () async {
                   await uploadImagetoFireStorage();

@@ -230,7 +230,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                           .searchController
                           .clear();
 
-                      /// on editing complete the keyboard will be closed and the search bar will be closed
+                      ///  on editing complete the keyboard will be closed and the search bar will be closed
                       unfocusKeyboard();
                       setState(() {
                         toggle = 0;

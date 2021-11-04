@@ -20,7 +20,7 @@ class _StatuesPageState extends State<StatuesPage> {
     return Scaffold(
       body: SizedBox(
           height: MediaQuery.of(context).size.height * 0.3,
-          //! here where the contants you can chat with will appear;
+          //!  here where the contants you can chat with will appear;
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('ChatRooms')

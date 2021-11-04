@@ -56,7 +56,7 @@ class ChatProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //* this method is to change color
+  //*  this method is to change color
   changingTextColor() {
     if (darkMood == true) {
       textColor = Colors.white;
